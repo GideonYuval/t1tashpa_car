@@ -74,24 +74,21 @@ namespace t1tashpa_car
         public string[] BookCars(char[] levels)
         {
             string[] order = new string[levels.Length];
+            int car = 0;
+            string code = "";
             for (int level = 0; level < levels.Length; level++)
             {
-                int car = 0;
-                string code="";
-                bool booked = false;
-                while (
-                        car < this.cars.Length && //first check index
-                        this.cars[car] != null && //then check if not null
-                        !booked //while not booked, continue looping
-                      )
+
+                while (car < this.cars.Length && code == "")
                 {
-                    code = this.cars[car].BookCar(levels[level]);
-                    if (code == "") car++;
-                    else booked = true;
+                    if (this.cars[car]!=null)
+                        code = this.cars[car].BookCar(levels[level]);
+                    car++;
                 }
 
-                if (booked)
-                    order[level] = code;
+                order[level] = code;
+                code = "";
+                car = 0;
 
             }
             return order;
